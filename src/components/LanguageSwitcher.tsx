@@ -1,45 +1,24 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { SUPPORTED_LANGUAGES, LANGUAGE_LABELS } from '../constants/languages';
+import type { Translation } from '../types';
 
 const LanguageSwitcher: React.FC = () => {
   const { i18n } = useTranslation();
-
-  const buttonStyle = (isActive: boolean) => ({
-    backgroundColor: isActive ? '#006400' : '#FFFFFF',
-    color: isActive ? '#FFFFFF' : '#006400',
-    border: '1px solid #006400',
-    padding: '0.5rem 1rem',
-    margin: '0 0.5rem',
-    borderRadius: '0.375rem',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease'
-  });
-
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-  };
+  const currentLang = i18n.language as keyof Translation;
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', padding: '1rem' }}>
-      <button 
-        onClick={() => changeLanguage('en')} 
-        style={buttonStyle(i18n.language === 'en')}
-      >
-        English
-      </button>
-      <button 
-        onClick={() => changeLanguage('my')} 
-        style={buttonStyle(i18n.language === 'my')}
-      >
-        မြန်မာ
-      </button>
-      <button 
-        onClick={() => changeLanguage('th')} 
-        style={buttonStyle(i18n.language === 'th')}
-      >
-        ไทย
-      </button>
-    </div>
+    <select
+      value={currentLang}
+      onChange={(e) => i18n.changeLanguage(e.target.value)}
+      className="bg-transparent text-white/80 border border-white/20 rounded-md px-2 py-1"
+    >
+      {SUPPORTED_LANGUAGES.map((lang) => (
+        <option key={lang} value={lang}>
+          {LANGUAGE_LABELS[lang]}
+        </option>
+      ))}
+    </select>
   );
 };
 

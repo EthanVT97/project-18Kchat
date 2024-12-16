@@ -1,20 +1,12 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { Language } from '../types';
+import { useTranslation } from 'react-i18next';
+import type { Translation } from '../types';
 
-interface LanguageState {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-}
+export const useLanguage = () => {
+  const { i18n } = useTranslation();
+  const currentLang = i18n.language as keyof Translation;
 
-export const useLanguage = create<LanguageState>()(
-  persist(
-    (set) => ({
-      language: 'my',
-      setLanguage: (language) => set({ language }),
-    }),
-    {
-      name: '18k-language',
-    }
-  )
-);
+  return {
+    language: currentLang,
+    changeLanguage: (lang: keyof Translation) => i18n.changeLanguage(lang)
+  };
+};

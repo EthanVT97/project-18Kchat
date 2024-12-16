@@ -1,8 +1,9 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
+import LanguageSwitcher from '../LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from './LanguageSwitcher';
 
-const Navbar = () => {
+export const Navbar: React.FC = () => {
   const { t } = useTranslation();
 
   return (

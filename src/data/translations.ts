@@ -1,34 +1,29 @@
-import { Translation } from '../types';
+import type { Translation } from '../types';
 
-export const translations: Translation = {
+export const translations: Record<string, Record<keyof Translation, string>> = {
   features: {
-    my: 'ဝန်ဆောင်မှုများ',
-    th: 'บริการ',
     en: 'Features',
+    my: 'ဝိသေသလက္ခဏာများ',
+    th: 'คุณสมบัติ'
   },
   pricing: {
-    my: 'စျေးနှုန်းများ',
-    th: 'ราคา',
     en: 'Pricing',
+    my: 'စျေးနှုန်း',
+    th: 'ราคา'
   },
   contact: {
-    my: 'ဆက်သွယ်ရန်',
-    th: 'ติดต่อ',
     en: 'Contact',
+    my: 'ဆက်သွယ်ရန်',
+    th: 'ติดต่อ'
   },
-  hero: {
-    my: 'စီးပွားရေးအောင်မြင်မှုအတွက် ဒစ်ဂျစ်တယ်ဖြေရှင်းချက်များ',
-    th: 'โซลูชันดิจิทัลเพื่อความสำเร็จทางธุรกิจ',
+  heroTitle: {
     en: 'Digital Solutions for Business Success',
+    my: 'စီးပွားရေးအောင်မြင်မှုအတွက် ဒစ်ဂျစ်တယ်ဖြေရှင်းချက်များ',
+    th: 'โซลูชันดิจิทัลเพื่อความสำเร็จทางธุรกิจ'
   },
-  subHero: {
-    my: 'သင့်လုပ်ငန်းကို နောက်တစ်ဆင့်သို့ တက်လှမ်းစေမယ်',
-    th: 'ยกระดับธุรกิจของคุณสู่ระดับถัดไป',
+  heroDescription: {
     en: 'Take Your Business to the Next Level',
-  },
-  getStarted: {
-    my: 'စတင်အသုံးပြုရန်',
-    th: 'เริ่มต้นใช้งาน',
-    en: 'Get Started',
-  },
+    my: 'သင့်လုပ်ငန်းကို နောက်တစ်ဆင့်သို့ တက်လှမ်းစေမယ်',
+    th: 'ยกระดับธุรกิจของคุณสู่ระดับถัดไป'
+  }
 };

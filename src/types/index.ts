@@ -1,27 +1,24 @@
-export type Language = 'my' | 'th' | 'en';
-
 export interface Translation {
-  [key: string]: {
-    [key in Language]: string;
-  };
+  my: string;
+  en: string;
+  th: string;
 }
 
 export interface PricingTier {
   id: string;
   name: Translation;
   price: {
-    [key in Language]: {
-      amount: number;
-      currency: string;
-    };
+    my: { amount: number; currency: string };
+    en: { amount: number; currency: string };
+    th: { amount: number; currency: string };
   };
   features: Translation[];
+  popular?: boolean;
 }
 
-export interface Testimonial {
+export interface Feature {
   id: string;
-  name: Translation;
-  company: Translation;
-  content: Translation;
-  image: string;
+  title: Translation;
+  description: Translation;
+  icon: string;
 }

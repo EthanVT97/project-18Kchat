@@ -1,11 +1,13 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { NavLink } from './NavLink';
-import { LanguageSwitcher } from '../LanguageSwitcher';
-import { useLanguage } from '../../hooks/useLanguage';
+import LanguageSwitcher from '../LanguageSwitcher';
 import { translations } from '../../data/translations';
+import type { Translation } from '../../types';
 
-export const Navigation = () => {
-  const { language } = useLanguage();
+export const Navigation: React.FC = () => {
+  const { i18n } = useTranslation();
+  const currentLang = i18n.language as keyof Translation;
 
   return (
     <nav className="hidden md:flex items-center space-x-8">
@@ -13,24 +15,23 @@ export const Navigation = () => {
         href="#features"
         translationKey="features"
         translations={translations}
-        language={language}
+        language={currentLang}
       />
       <NavLink
         href="#pricing"
         translationKey="pricing"
         translations={translations}
-        language={language}
+        language={currentLang}
       />
       <NavLink
         href="#contact"
         translationKey="contact"
         translations={translations}
-        language={language}
+        language={currentLang}
       />
       <LanguageSwitcher />
-      <button className="bg-gold text-dark px-6 py-2 rounded-md hover:bg-gold/90 transition-colors">
-        {translations.getStarted[language]}
-      </button>
     </nav>
   );
 };
+
+export default Navigation;
