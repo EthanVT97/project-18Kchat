@@ -1,61 +1,58 @@
 import React from 'react';
-import { useLanguage } from '../hooks/useLanguage';
-import { pricing } from '../data/pricing';
-import { Check } from 'lucide-react';
-import { Container } from './ui/Container';
+import { useTranslation } from 'react-i18next';
+import type { Translation } from '../types';
 
-export const Pricing = () => {
-  const { language } = useLanguage();
+interface PricingTier {
+  id: string;
+  name: string;
+  price: string;
+  features: string[];
+  popular?: boolean;
+}
+
+export const Pricing: React.FC = () => {
+  const { i18n } = useTranslation();
+  const currentLang = i18n.language as keyof Translation;
+
+  const tiers: PricingTier[] = [
+    {
+      id: 'basic',
+      name: 'Basic',
+      price: '$10',
+      features: ['Feature 1', 'Feature 2', 'Feature 3'],
+    },
+    {
+      id: 'pro',
+      name: 'Pro',
+      price: '$20',
+      features: ['All Basic features', 'Feature 4', 'Feature 5'],
+      popular: true,
+    },
+    {
+      id: 'enterprise',
+      name: 'Enterprise',
+      price: '$30',
+      features: ['All Pro features', 'Feature 6', 'Feature 7'],
+    },
+  ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-dark/90 to-dark" id="pricing">
-      <Container>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {pricing.tiers.map((tier) => (
-            <div
-              key={tier.id}
-              className={`p-8 rounded-lg border ${
-                tier.popular
-                  ? 'border-gold bg-gold/5'
-                  : 'border-white/10 bg-dark/40'
-              }`}
-            >
-              {tier.popular && (
-                <span className="inline-block px-3 py-1 text-xs text-gold border border-gold rounded-full mb-4">
-                  {pricing.popularLabel[language]}
-                </span>
-              )}
-              <h3 className="text-xl font-semibold text-gold mb-2">
-                {tier.name[language]}
-              </h3>
-              <div className="mb-6">
-                <span className="text-3xl font-bold text-white">
-                  {tier.price[language].currency}
-                  {tier.price[language].amount.toLocaleString()}
-                </span>
-                <span className="text-white/60">/mo</span>
-              </div>
-              <ul className="space-y-4 mb-8">
-                {tier.features.map((feature, index) => (
-                  <li key={index} className="flex items-center text-white/80">
-                    <Check className="w-5 h-5 text-gold mr-2" />
-                    {feature[language]}
-                  </li>
-                ))}
-              </ul>
-              <button
-                className={`w-full py-2 px-4 rounded-md transition-colors ${
-                  tier.popular
-                    ? 'bg-gold text-dark hover:bg-gold/90'
-                    : 'bg-white/10 text-white hover:bg-white/20'
-                }`}
-              >
-                {pricing.selectPlan[language]}
-              </button>
-            </div>
-          ))}
-        </div>
-      </Container>
+    <section className="pricing">
+      <div className="grid">
+        {tiers.map((tier) => (
+          <div key={tier.id} className={`tier ${tier.popular ? 'popular' : ''}`}>
+            <h3>{tier.name}</h3>
+            <p className="price">{tier.price}</p>
+            <ul>
+              {tier.features.map((feature, index) => (
+                <li key={index}>{feature}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </section>
   );
 };
+
+export default Pricing;
